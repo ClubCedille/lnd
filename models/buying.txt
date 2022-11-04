@@ -1,0 +1,28 @@
+@startuml
+
+title Buying from an Online Shop
+hide footbox
+
+actor Bob as B
+participant "Bob's Node" as BN
+participant Shop as S
+participant "Shop's Node" as SN
+
+B -> S: buy(uid, item_id)
+note right
+  Bob buys something from an online shop.
+end note
+S -> SN: create_invoice(uid, price)
+note left
+  The shop send the details necessary 
+  to create the invoice to the node.
+end note
+SN -> SN: invoice(uid, price)
+BN <-- SN: send_invoice(invoice)
+note right
+  The shop sends an invoice to the Bob's
+  node in order to complete the transaction.
+end note
+BN -> SN: pay(invoice)
+
+@enduml
